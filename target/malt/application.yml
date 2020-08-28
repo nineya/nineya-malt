@@ -1,4 +1,0 @@
-# 需要压缩的文件类型，仅在压缩整个目录时有效
-fileTypes: [CSS, JS, html]
-# 是否复制无须压缩的文件到压缩目录
-noCompressCopy: true
