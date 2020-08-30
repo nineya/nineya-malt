@@ -177,9 +177,18 @@ public class FileTool {
         try {
             jarWholePath = java.net.URLDecoder.decode(jarWholePath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
-        return new File(jarWholePath).getParentFile().getAbsolutePath();
+        if(System.getProperty("os.name").contains("dows")) {
+            jarWholePath = jarWholePath.substring(1);
+        }
+        if(jarWholePath.contains("jar")) {
+            return jarWholePath.substring(0,jarWholePath.lastIndexOf("/") + 1);
+        }
+        if (jarWholePath.endsWith("target/classes/")){
+            return jarWholePath.substring(0, jarWholePath.length() - 15);
+        }
+        return jarWholePath;
     }
 
     public static void judgeMIME(String path) throws MaltFileException {

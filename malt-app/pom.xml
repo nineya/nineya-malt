@@ -2,16 +2,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <name>malt-app</name>
+    <description>Versatile COMPRESSION software for HTML, JS and CSS.</description>
+    <url>https://github.com/nineya/snail-log/malt-app</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <artifactId>malt-app</artifactId>
     <parent>
         <artifactId>nineya-malt</artifactId>
         <groupId>com.nineya.malt</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>malt-app</artifactId>
+    <developers>
+        <developer>
+            <name>nineya</name>
+            <email>lswang@nineya.com</email>
+            <organization>nineya</organization>
+            <organizationUrl>https://blog.nineya.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:nineya/nineya-malt.git</connection>
+        <developerConnection>scm:git:git@github.com:nineya/nineya-malt.git</developerConnection>
+        <url>git@github.com:nineya/nineya-malt.git</url>
+    </scm>
 
     <dependencies>
+        <dependency>
+            <groupId>com.nineya.malt</groupId>
+            <artifactId>malt-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.nineya.slog</groupId>
             <artifactId>slog-core</artifactId>
@@ -20,5 +50,42 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.5</version>
+                <configuration>
+                    <archive>
+                        <!-- 向MANIFEST.MF添加内容 -->
+                        <manifest>
+                            <!-- 时间戳 -->
+<!--                            <Timestamp>${maven.build.timestamp}</Timestamp>-->
+                            <!-- main方法 -->
+                            <mainClass>com.nineya.malt.MaltMain</mainClass>   
+                        </manifest>        
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>  
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
